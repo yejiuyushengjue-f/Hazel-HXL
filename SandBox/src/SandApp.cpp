@@ -16,6 +16,7 @@ public:
 	// 在此处实现应用层各种功能
 };
 
+// 客户端
 Hazel::Application* Hazel::CreateApplication()
 {
 	return new SandBox;
