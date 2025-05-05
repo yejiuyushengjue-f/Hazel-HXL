@@ -2,6 +2,8 @@
 
 #include "Core.h"
 
+#include "Hazel/Event/Event.h"
+
 namespace Hazel {
 
 	class HAZEL_API Application
