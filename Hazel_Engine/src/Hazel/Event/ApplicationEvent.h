@@ -3,8 +3,6 @@
 #include "Event.h"
 #include "spdlog/fmt/ostr.h"
 
-#include <sstream>
-
 namespace Hazel {
 
 	class HAZEL_API WindowResizeEvent : public Event

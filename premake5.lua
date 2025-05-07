@@ -20,6 +20,9 @@ project "Hazel_Engine"
 
 	buildoptions "/utf-8"
 
+	pchheader "hzpch.h"
+	pchsource "Hazel_Engine/src/hzpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
