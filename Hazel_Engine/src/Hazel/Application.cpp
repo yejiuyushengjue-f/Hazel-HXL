@@ -4,10 +4,13 @@
 #include "Hazel/Event/ApplicationEvent.h"
 #include "Hazel/Log.h"
 
+#include <GLFW/glfw3.h>
+
 namespace Hazel {
 
 	Application::Application()
 	{
+		m_Window = std::unique_ptr<Window>(Window::Create());	// 显式地使用 std::unique_ptr 的构造函数以进行类型转换
 	}
 
 	Application::~Application()
@@ -16,13 +19,13 @@ namespace Hazel {
 
 	void Application::Run()
 	{
-		WindowResizeEvent e(1280, 720);
-		if (e.IsInCategory(EventCategoryApplication))
-			HZ_TRACE(e.ToString());
-		if (e.IsInCategory(EventCategoryInput))
-			HZ_TRACE(e.ToString());
+		while (m_Running)
+		{
+			glClearColor(1, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
 
-		while (true);
+			m_Window->OnUpdate();
+		}
 	}
 
 	Application* CreateApplication()

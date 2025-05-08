@@ -10,6 +10,12 @@ workspace "Hazel_Engine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Hazel_Engine/vendor/GLFW/include"
+
+include "Hazel_Engine/vendor/GLFW"
+
 project "Hazel_Engine"
 	location "Hazel_Engine"
 	kind "SharedLib"
@@ -32,12 +38,22 @@ project "Hazel_Engine"
 	includedirs
 	{
 		"%{prj.name}/vendor/spdlog/include",
-		"Hazel_Engine/src"
+		"Hazel_Engine/src",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib",
+		"legacy_stdio_definitions.lib", -- 解决旧版stdio函数问题
+    	"user32.lib",                   -- Windows基础库
+		"kernel32.lib"                  -- Windows内核库
 	}
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
+		staticruntime "Off"			-- 关闭静态运行时库，使用动态运行时库
 		systemversion "latest"
 
 		defines
@@ -92,7 +108,7 @@ project "SandBox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
+		staticruntime "Off"
 		systemversion "latest"
 
 		defines
@@ -105,7 +121,7 @@ project "SandBox"
 		symbols "On"
 
 	filter "configurations:Release"
-		defines "HZ_DEBUG"
+		defines "HZ_RELEASE"
 		optimize "On"
 
 	filter "configurations:Dist"
