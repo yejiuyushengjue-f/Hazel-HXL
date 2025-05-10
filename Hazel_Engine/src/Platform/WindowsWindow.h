@@ -18,7 +18,7 @@ namespace Hazel {
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
 
 		// 窗口属性
-		void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
+		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled) override;	// 设置垂直同步
 		bool IsVSync() const override;
 	private:

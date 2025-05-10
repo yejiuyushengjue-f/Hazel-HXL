@@ -50,6 +50,8 @@ namespace Hazel {
 			return GetCategoryFlags() & category;
 		}
 	protected:
+		friend class EventDispatcher;		//声明为友元类后，即可在该类中访问 protected 中的内容
+
 		bool m_Handled = false;
 	};
 
@@ -63,9 +65,9 @@ namespace Hazel {
 		}
 
 		template<typename T>
-		bool Dispatcher(EventFu<T> func)
+		bool Dispatcher(EventFu<T> func)	// 利用模板 T 实现类型的检验
 		{
-			if (m_Event.GetEventType() == T::GetCategory())
+			if (m_Event.GetEventType() == T::GetStaticType())	// 将T与m_Event的类型进行对比
 			{
 				m_Event.m_Handled = func(*(T*)&m_Event);
 				return true;
