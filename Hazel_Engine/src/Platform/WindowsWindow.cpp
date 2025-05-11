@@ -23,7 +23,6 @@ namespace Hazel {
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
 		Init(props);
-		glfwMakeContextCurrent(m_Window);
 	}
 
 	WindowsWindow::~WindowsWindow()
@@ -71,6 +70,11 @@ namespace Hazel {
 		}
 
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		glfwMakeContextCurrent(m_Window);		// 在GLFW初始化后创建GLFW的上下文
+
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		HZ_CORE_ASSERT(status, "Failed to initialized Glad!");
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);	// 设置窗口点包含的数据信息
 		SetVSync(true);
 

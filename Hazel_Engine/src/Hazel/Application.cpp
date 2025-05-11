@@ -3,7 +3,7 @@
 
 #include "Hazel/Log.h"
 
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 namespace Hazel {
 
@@ -13,6 +13,9 @@ namespace Hazel {
 	{
 		m_Window = std::unique_ptr<Window>(Window::Create());	// 显式地使用 std::unique_ptr 的构造函数以进行类型转换
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));	// std::bind创建一个可调用对象，并将函数与该对象进行绑定
+
+		unsigned int id;
+		glGenVertexArrays(1, &id);
 	}
 
 	Application::~Application()

@@ -13,8 +13,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Hazel_Engine/vendor/GLFW/include"
+IncludeDir["Glad"] = "Hazel_Engine/vendor/Glad/include"
 
 include "Hazel_Engine/vendor/GLFW"
+include "Hazel_Engine/vendor/Glad"
 
 project "Hazel_Engine"
 	location "Hazel_Engine"
@@ -39,12 +41,14 @@ project "Hazel_Engine"
 	{
 		"%{prj.name}/vendor/spdlog/include",
 		"Hazel_Engine/src",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib",
 		"legacy_stdio_definitions.lib", -- 解决旧版stdio函数问题
     	"user32.lib",                   -- Windows基础库
