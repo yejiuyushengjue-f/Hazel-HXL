@@ -49,6 +49,8 @@ namespace Hazel {
 		{
 			return GetCategoryFlags() & category;
 		}
+		
+		inline bool GetHandled() { return m_Handled; }
 	protected:
 		friend class EventDispatcher;		//声明为友元类后，即可在该类中访问 protected 中的内容
 
